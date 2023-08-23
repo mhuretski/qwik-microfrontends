@@ -3,14 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:all": "npx nx run-many --parallel --target=serve --maxParallel=100 --projects=host,home,builder,checkout",
+    "serve:all": "npx nx run-many --parallel --target=serve --maxParallel=100 --projects=host,static,builder,checkout",
+    "serve:host": "npx nx run-many --parallel --target=serve --projects=host",
     "preview:host": "npx nx run host:preview",
     "preview:builder": "npx nx run builder:preview",
-    "preview:home": "npx nx run home:preview",
+    "preview:static": "npx nx run static:preview",
     "preview:checkout": "npx nx run checkout:preview"
   },
   "private": true,
   "dependencies": {
+    "json-to-css": "^0.1.0",
     "qwik-nx": "1.0.8"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
     "eslint": "~8.41.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-qwik": "~1.1.4",
+    "isbot": "^3.6.13",
     "jsdom": "~22.1.0",
     "node-fetch": "~3.3.1",
     "nx": "16.7.2",

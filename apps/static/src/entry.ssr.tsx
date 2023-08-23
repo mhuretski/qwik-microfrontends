@@ -10,14 +10,14 @@
  * - npm run build
  *
  */
-import { renderToStream, RenderToStreamOptions } from '@builder.io/qwik/server';
-import { manifest } from '@qwik-client-manifest';
-import Root from './root';
+import { renderToStream, RenderToStreamOptions } from '@builder.io/qwik/server'
+import { manifest } from '@qwik-client-manifest'
+import Root from './root'
 
-const base = '/home/build/';
+const base = '/static/build/'
 
 export default function (opts: RenderToStreamOptions) {
-  const url = new URL(opts.serverData!.url);
+  const url = new URL(opts.serverData!.url)
   return renderToStream(<Root />, {
     manifest,
     base,
@@ -38,5 +38,5 @@ export default function (opts: RenderToStreamOptions) {
     qwikLoader: {
       include: url.searchParams.get('loader') ? 'never' : 'auto',
     },
-  });
+  })
 }

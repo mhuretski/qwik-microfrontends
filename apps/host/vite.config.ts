@@ -6,8 +6,12 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import { remotes } from '../../shared/remotes'
 import { fixRemoteHTMLInDevMode } from './shared'
 
+import { generateCssTokens } from './styles/util/cssGenerator'
+
 export default defineConfig(({ mode }) => {
   const isDev = mode !== 'production'
+
+  generateCssTokens(isDev)
 
   return {
     cacheDir: '../../node_modules/.vite/apps/host',
@@ -49,16 +53,14 @@ export default defineConfig(({ mode }) => {
 
 const getProxy = (isDev: boolean) => {
   const proxy: ServerOptions['proxy'] = {}
+
   Object.entries(remotes).forEach(([name, { host }]) => {
-    proxy[`^/${name}/.*.js`] = {
+    proxy[`^/${name}/.*`] = {
       target: host,
       changeOrigin: true,
       selfHandleResponse: isDev,
       rewrite: (path) => {
-        return path.indexOf(`/${name}/build/`) === 0 ||
-          path.indexOf(`/${name}/src/`) === 0
-          ? path.replace(`/${name}`, '')
-          : path
+        return path.replace(`/${name}`, '')
       },
       configure: (proxy) => {
         proxy.on('proxyRes', (proxyRes, req, res) => {

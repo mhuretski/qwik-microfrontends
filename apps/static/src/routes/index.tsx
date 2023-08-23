@@ -17,7 +17,7 @@ export default component$(() => {
 
   return (
     <div
-      class={`${store.viewed ? 'bg-blue-800' : ''} flex flex-wrap`}
+      class={`${store.viewed ? 'bg-background' : 'bg-primary'} flex flex-wrap`}
       style="justify-content: space-between"
     >
       {productsSignal.value.map((p) => (

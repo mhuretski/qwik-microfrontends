@@ -1,0 +1,22 @@
+/* nunito-sans-regular - latin-ext_latin_cyrillic-ext_cyrillic */
+@font-face {
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local(''),
+        url('fonts/nunito-sans/nunito-sans-v12-latin-ext_latin_cyrillic-ext_cyrillic-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url('fonts/nunito-sans/nunito-sans-v12-latin-ext_latin_cyrillic-ext_cyrillic-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* nunito-sans-700 - latin-ext_latin_cyrillic-ext_cyrillic */
+@font-face {
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local(''),
+        url('fonts/nunito-sans/nunito-sans-v12-latin-ext_latin_cyrillic-ext_cyrillic-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url('fonts/nunito-sans/nunito-sans-v12-latin-ext_latin_cyrillic-ext_cyrillic-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}

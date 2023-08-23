@@ -7,6 +7,8 @@ import {
 import { RouterHead } from './components/router-head/router-head'
 
 import globalStyles from './global.scss?inline'
+import tokensStyles from './tokens.generated.module.css?inline'
+import fontsStyles from './fonts.generated.module.css?inline'
 
 export default component$(() => {
   /**
@@ -16,6 +18,8 @@ export default component$(() => {
    * Don't remove the `<head>` and `<body>` elements.
    */
   useStyles$(globalStyles)
+  useStyles$(tokensStyles)
+  useStyles$(fontsStyles)
 
   return (
     <QwikCityProvider>

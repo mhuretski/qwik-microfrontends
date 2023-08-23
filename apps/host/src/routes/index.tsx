@@ -30,7 +30,7 @@ export default component$(() => {
           />
         </Form>
       </div>
-      <RemoteMfe remote={remotes.home} />
+      <RemoteMfe remote={remotes.static} fetchOnVisible />
     </>
   )
 })

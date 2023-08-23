@@ -8,7 +8,7 @@ export const Header = component$(() => {
   return (
     <nav
       class={`${
-        store.viewed ? 'bg-blue-800' : 'bg-gray-900'
+        store.viewed ? 'bg-background' : 'bg-primary'
       } fixed w-full z-20 top-0 left-0 border-b border-gray-600`}
     >
       <div class="flex flex-wrap items-center justify-between mx-auto p-4">

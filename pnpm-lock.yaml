@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@builder.io/sdk-qwik':
-    specifier: ^0.5.9
-    version: 0.5.9(@builder.io/qwik@1.2.7)(undici@5.22.1)
+  json-to-css:
+    specifier: ^0.1.0
+    version: 0.1.0
   qwik-nx:
     specifier: 1.0.8
     version: 1.0.8(@types/node@20.2.5)(eslint@8.41.0)(nx@16.7.2)(typescript@5.0.4)(vite@4.3.9)(vitest@0.31.1)
@@ -19,6 +19,9 @@ devDependencies:
   '@builder.io/qwik-city':
     specifier: ~1.2.7
     version: 1.2.7
+  '@builder.io/sdk-qwik':
+    specifier: ^0.5.9
+    version: 0.5.9(@builder.io/qwik@1.2.7)(undici@5.22.1)
   '@nx/eslint-plugin':
     specifier: 16.2.2
     version: 16.2.2(@typescript-eslint/parser@5.59.7)(eslint-config-prettier@8.8.0)(eslint@8.41.0)(nx@16.7.2)(typescript@5.0.4)
@@ -55,6 +58,9 @@ devDependencies:
   eslint-plugin-qwik:
     specifier: ~1.1.4
     version: 1.1.4(eslint@8.41.0)
+  isbot:
+    specifier: ^3.6.13
+    version: 3.6.13
   jsdom:
     specifier: ~22.1.0
     version: 22.1.0
@@ -1352,6 +1358,7 @@ packages:
     dependencies:
       csstype: 3.1.2
       undici: 5.22.1
+    dev: true
 
   /@builder.io/sdk-qwik@0.5.9(@builder.io/qwik@1.2.7)(undici@5.22.1):
     resolution: {integrity: sha512-cZ58rySrTql2ijYuzMw0MQN0YSdEgWL9VITow6JAWwg06RhGmdPA9kdXdZ2rjeLjsOTra6K9ldYhnKjZm761pg==}
@@ -1361,7 +1368,7 @@ packages:
     dependencies:
       '@builder.io/qwik': 1.2.7(undici@5.22.1)
       undici: 5.22.1
-    dev: false
+    dev: true
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -2964,6 +2971,7 @@ packages:
     engines: {node: '>=10.16.0'}
     dependencies:
       streamsearch: 1.1.0
+    dev: true
 
   /cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -3254,6 +3262,7 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+    dev: true
 
   /data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
@@ -4383,6 +4392,11 @@ packages:
     dependencies:
       is-docker: 2.2.1
 
+  /isbot@3.6.13:
+    resolution: {integrity: sha512-uoP4uK5Dc2CrabmK+Gue1jTL+scHiCc1c9rblRpJwG8CPxjLIv8jmGyyGRGkbPOweayhkskdZsEQXG6p+QCQrg==}
+    engines: {node: '>=12'}
+    dev: true
+
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
@@ -4479,6 +4493,10 @@ packages:
 
   /json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
+
+  /json-to-css@0.1.0:
+    resolution: {integrity: sha512-0A6Xooey9slodt9MX7wWRVNo5G7fujVlBkdyhjNPg3GzoJW7j5EBD/Duw3zK3V132Ma/HTEnBRchl1PmOWiZgg==}
+    dev: false
 
   /json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
@@ -5966,6 +5984,7 @@ packages:
   /streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
+    dev: true
 
   /streamx@2.15.1:
     resolution: {integrity: sha512-fQMzy2O/Q47rgwErk/eGeLu/roaFWV0jVsogDmrszM9uIw8L5OA+t+V93MgYlufNptfjmYR1tOMWhei/Eh7TQA==}
@@ -6382,6 +6401,7 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       busboy: 1.6.0
+    dev: true
 
   /unicode-canonical-property-names-ecmascript@2.0.0:
     resolution: {integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ==}

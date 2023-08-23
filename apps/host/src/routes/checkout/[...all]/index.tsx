@@ -9,7 +9,7 @@ export default component$(() => {
         checkout!
       </div>
       <RemoteMfe remote={remotes.checkout} />
-      <RemoteMfe remote={remotes.home} path="/" />
+      <RemoteMfe remote={remotes.static} path="/" />
     </>
   )
 })

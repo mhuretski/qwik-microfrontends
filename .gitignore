@@ -37,3 +37,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+apps/host/src/tokens.generated.module.css
+apps/host/src/fonts.generated.module.css
+apps/host/styles/tokens.json
+apps/host/public/tokens.json
+apps/host/public/tokens.generated.json
+apps/host/public/fonts.generated.json

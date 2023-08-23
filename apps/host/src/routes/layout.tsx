@@ -2,15 +2,20 @@ import { component$, Slot } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '@qwik-microfrontends/ui'
+import isbot from 'isbot'
+
 import {
   getPersonalizedData,
   usePersonalizationProvider,
 } from 'shared/context/personalization'
 import { Header } from '../components/header/header'
 
-export const onGet: RequestHandler = async (req) => {
-  const { next, sharedMap, cookie } = req
+export const onGet: RequestHandler = async (requestEvent) => {
+  const { next, sharedMap, cookie, request } = requestEvent
 
+  sharedMap.set('isBot', isbot(request.headers.get('User-Agent')))
+
+  // TODO remove, for demonstration purposes only
   const viewed = cookie.get('viewed')
   if (viewed?.value && viewed.value === '1') {
     sharedMap.set('viewed', 1)
@@ -30,9 +35,9 @@ export const onGet: RequestHandler = async (req) => {
   await next()
 }
 
-export const usePersonalized = routeLoader$(({ sharedMap }) =>
-  getPersonalizedData(sharedMap)
-)
+export const usePersonalized = routeLoader$(({ sharedMap }) => {
+  return getPersonalizedData(sharedMap)
+})
 
 export default component$(() => {
   const personalizedType = usePersonalized()
@@ -42,7 +47,7 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <main class="min-h-screen mt-18 pt-10 bg-slate-900">
+      <main class="min-h-screen mt-18 pt-10">
         <Slot />
       </main>
       <Footer />

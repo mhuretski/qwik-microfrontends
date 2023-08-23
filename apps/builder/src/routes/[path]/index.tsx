@@ -29,17 +29,11 @@ export default component$(() => {
         onPending={() => <div>Loading...</div>}
         onResolved={(content) => {
           return (
-            <>
-              {content ? (
-                <Content
-                  model="page"
-                  content={content}
-                  apiKey={import.meta.env.VITE_BUILDER_PUBLIC_API_KEY || ''}
-                />
-              ) : (
-                <div>no content found</div>
-              )}
-            </>
+            <Content
+              model="page"
+              content={content}
+              apiKey={import.meta.env.VITE_BUILDER_PUBLIC_API_KEY || ''}
+            />
           )
         }}
       />
