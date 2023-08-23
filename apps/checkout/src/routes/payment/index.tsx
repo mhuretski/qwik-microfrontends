@@ -1,11 +1,11 @@
-import { component$, useContext, useSignal } from '@builder.io/qwik';
-import { CheckoutContext } from '../layout';
+import { component$, useContext, useSignal } from '@builder.io/qwik'
+import { CheckoutContext } from '../layout'
 
 export default component$(() => {
-  const checkoutState = useContext(CheckoutContext);
-  const counterSignal = useSignal(0);
+  const checkoutState = useContext(CheckoutContext)
+  const counterSignal = useSignal(0)
   return (
-    <section class="h-screen bg-slate-900 py-12 sm:py-16 lg:py-20">
+    <section class="bg-slate-900 py-12 sm:py-16 lg:py-20">
       <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-center">
           <h1 class="text-2xl font-semibold text-white">Payments</h1>
@@ -170,12 +170,12 @@ export default component$(() => {
             <button
               class="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
               onClick$={() => {
-                checkoutState.items = [...checkoutState.items, 'Solid'];
-                counterSignal.value += 1;
+                checkoutState.items = [...checkoutState.items, 'Solid']
+                counterSignal.value += 1
                 console.log(
                   'Payment!!',
                   checkoutState.items.map((i) => i)
-                );
+                )
               }}
             >
               Counter {counterSignal.value}
@@ -184,5 +184,5 @@ export default component$(() => {
         </div>
       </div>
     </section>
-  );
-});
+  )
+})

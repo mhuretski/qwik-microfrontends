@@ -1,20 +1,20 @@
-import { component$ } from '@builder.io/qwik';
-import { CART_QUANTITIES_CHANGED_EVENT } from '../../../../shared/constants';
-import { Button } from './button';
+import { component$ } from '@builder.io/qwik'
+import { CART_QUANTITIES_CHANGED_EVENT } from '../../../../shared/constants'
+import { Button } from './button'
 
 export type ProductType = {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: { rate: number; count: number };
-};
+  id: number
+  title: string
+  price: number
+  description: string
+  category: string
+  image: string
+  rating: { rate: number; count: number }
+}
 
 type Props = {
-  product: ProductType;
-};
+  product: ProductType
+}
 
 export const Product = component$<Props>(({ product }) => {
   return (
@@ -96,13 +96,14 @@ export const Product = component$<Props>(({ product }) => {
             onClick$={() => {
               document.dispatchEvent(
                 new CustomEvent(CART_QUANTITIES_CHANGED_EVENT, {
+                  // TODO total value from API
                   detail: { qty: 1 },
                 })
-              );
+              )
             }}
           />
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

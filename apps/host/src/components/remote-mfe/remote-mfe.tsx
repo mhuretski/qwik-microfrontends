@@ -3,41 +3,60 @@ import {
   SSRStream,
   SSRStreamBlock,
   StreamWriter,
-} from '@builder.io/qwik';
-import { fixRemoteHTMLInDevMode } from 'apps/host/shared';
-import { type RemoteData } from '../../../../../shared/remotes';
+} from '@builder.io/qwik'
+import { useLocation } from '@builder.io/qwik-city'
+
+import { fixRemoteHTMLInDevMode } from '../../../shared'
+import { type RemoteData } from '../../../../../shared/remotes'
+import { usePersonalization } from 'shared/context/personalization'
+import { objectToCookiesString } from '../../../../../shared/cookies'
 
 export interface Props {
-  remote: RemoteData;
-  removeLoader?: boolean;
+  remote: RemoteData
+  path?: string
+  removeLoader?: boolean
 }
 
-export default component$(({ remote, removeLoader = false }: Props) => {
-  const url = remote.url;
-  const decoder = new TextDecoder();
-  const getSSRStreamFunction =
-    (remoteUrl: string) => async (stream: StreamWriter) => {
-      const _remoteUrl = new URL(remoteUrl);
-      if (removeLoader) {
-        _remoteUrl.searchParams.append('loader', 'false');
-      }
-      const reader = (
-        await fetch(_remoteUrl, { headers: { accept: 'text/html' } })
-      ).body!.getReader();
-      let fragmentChunk = await reader.read();
-      let base = '';
-      while (!fragmentChunk.done) {
-        const rawHtml = decoder.decode(fragmentChunk.value);
-        const fixedHtmlObj = fixRemoteHTMLInDevMode(rawHtml, base);
-        base = fixedHtmlObj.base;
-        stream.write(fixedHtmlObj.html);
-        fragmentChunk = await reader.read();
-      }
-    };
+export default component$(({ remote, path, removeLoader = true }: Props) => {
+  const store = usePersonalization()
+  const location = useLocation()
 
+  const decoder = new TextDecoder()
+  const getSSRStreamFunction = () => async (stream: StreamWriter) => {
+    const pathname = path || location.url.pathname
+    const remoteUrl = new URL(pathname, remote.host)
+
+    if (removeLoader) {
+      remoteUrl.searchParams.append('loader', 'false')
+    }
+    const reader = (
+      await fetch(remoteUrl, {
+        headers: {
+          accept: 'text/html',
+          cookie: objectToCookiesString(store),
+        },
+      })
+    ).body?.getReader()
+
+    if (!reader) return null
+
+    let fragmentChunk = await reader.read()
+    while (!fragmentChunk.done) {
+      const rawHtml = decoder.decode(fragmentChunk.value)
+      const fixedHtmlObj = fixRemoteHTMLInDevMode(
+        rawHtml,
+        '',
+        import.meta.env.DEV
+      )
+      stream.write(fixedHtmlObj.html)
+      fragmentChunk = await reader.read()
+    }
+  }
+
+  // TODO doesn't work with SPA
   return (
     <SSRStreamBlock>
-      <SSRStream>{getSSRStreamFunction(url)}</SSRStream>
+      <SSRStream>{getSSRStreamFunction()}</SSRStream>
     </SSRStreamBlock>
-  );
-});
+  )
+})

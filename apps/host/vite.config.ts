@@ -1,13 +1,13 @@
-import { qwikCity } from '@builder.io/qwik-city/vite';
-import { qwikVite } from '@builder.io/qwik/optimizer';
-import { qwikNxVite } from 'qwik-nx/plugins';
-import { ServerOptions, defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { remotes } from '../../shared/remotes';
-import { fixRemoteHTMLInDevMode } from './shared';
+import { qwikCity } from '@builder.io/qwik-city/vite'
+import { qwikVite } from '@builder.io/qwik/optimizer'
+import { qwikNxVite } from 'qwik-nx/plugins'
+import { ServerOptions, defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import { remotes } from '../../shared/remotes'
+import { fixRemoteHTMLInDevMode } from './shared'
 
 export default defineConfig(({ mode }) => {
-  const isDev = mode !== 'production';
+  const isDev = mode !== 'production'
 
   return {
     cacheDir: '../../node_modules/.vite/apps/host',
@@ -44,44 +44,45 @@ export default defineConfig(({ mode }) => {
       environment: 'node',
       include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     },
-  };
-});
+  }
+})
 
 const getProxy = (isDev: boolean) => {
-  let proxy: ServerOptions['proxy'] = {};
-  Object.values(remotes).forEach(({ name, url }) => {
-    proxy![`^/${name}/.*`] = {
-      target: url.replace(`${name}/`, ''),
+  const proxy: ServerOptions['proxy'] = {}
+  Object.entries(remotes).forEach(([name, { host }]) => {
+    proxy[`^/${name}/.*.js`] = {
+      target: host,
       changeOrigin: true,
       selfHandleResponse: isDev,
-      rewrite: (path) =>
-        path.indexOf(`/${name}/build/`) === 0 ||
-        path.indexOf(`/${name}/src/`) === 0
+      rewrite: (path) => {
+        return path.indexOf(`/${name}/build/`) === 0 ||
+          path.indexOf(`/${name}/src/`) === 0
           ? path.replace(`/${name}`, '')
-          : path,
-      configure: (proxy, _options) => {
+          : path
+      },
+      configure: (proxy) => {
         proxy.on('proxyRes', (proxyRes, req, res) => {
           if (isDev) {
-            const chunks: Buffer[] = [];
-            proxyRes.on('data', (chunk) => chunks.push(chunk));
+            const chunks: Buffer[] = []
+            proxyRes.on('data', (chunk) => chunks.push(chunk))
             proxyRes.on('end', function () {
-              const decoder = new TextDecoder();
-              const rawHtml = decoder.decode(Buffer.concat(chunks));
-              if (req.url!.slice(-3) === '.js') {
-                res.setHeader('Content-Type', 'application/javascript');
-                res.write(rawHtml);
+              const decoder = new TextDecoder()
+              const rawHtml = decoder.decode(Buffer.concat(chunks))
+              if (req.url && req.url.slice(-3) === '.js') {
+                res.setHeader('Content-Type', 'application/javascript')
+                res.write(rawHtml)
               } else {
-                res.setHeader('Content-Type', 'text/html');
-                const fixedHtmlObj = fixRemoteHTMLInDevMode(rawHtml, '', isDev);
-                res.write(fixedHtmlObj.html);
+                res.setHeader('Content-Type', 'text/html')
+                const fixedHtmlObj = fixRemoteHTMLInDevMode(rawHtml, '', isDev)
+                res.write(fixedHtmlObj.html)
               }
-              res.end();
-            });
+              res.end()
+            })
           }
-        });
+        })
       },
-    };
-  });
+    }
+  })
 
-  return proxy;
-};
+  return proxy
+}

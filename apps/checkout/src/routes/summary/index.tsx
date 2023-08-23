@@ -1,8 +1,8 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik'
 
 export default component$(() => {
   return (
-    <section class="h-screen bg-slate-900 py-12 sm:py-16 lg:py-20">
+    <section class="bg-slate-900 py-12 sm:py-16 lg:py-20">
       <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-center">
           <h1 class="text-2xl font-semibold text-white">Summary</h1>
@@ -191,5 +191,5 @@ export default component$(() => {
         </div>
       </div>
     </section>
-  );
-});
+  )
+})

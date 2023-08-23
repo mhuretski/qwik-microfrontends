@@ -1,10 +1,24 @@
-import { component$ } from '@builder.io/qwik';
+import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik'
+import { CART_QUANTITIES_CHANGED_EVENT } from '../../../../shared/constants'
+import { usePersonalization } from '../../../../shared/context/personalization'
+import { setCookie } from '../../../../shared/cookies'
 
-type Props = {
-  count: number;
-};
+export const CartCounter = component$(() => {
+  const store = usePersonalization()
 
-export const CartCounter = component$<Props>(({ count }) => {
+  const cartQtySignal = useSignal(store.cartAmount)
+
+  useOnDocument(
+    CART_QUANTITIES_CHANGED_EVENT,
+    $((event) => {
+      cartQtySignal.value += (event as CustomEvent).detail.qty
+
+      setCookie('cart', cartQtySignal.value.toString(), {
+        path: '/',
+      })
+    })
+  )
+
   return (
     <a
       href="/checkout/summary/"
@@ -25,7 +39,7 @@ export const CartCounter = component$<Props>(({ count }) => {
           d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
         />
       </svg>
-      <span class="px-2 text-lg">Cart ({count})</span>
+      <span class="px-2 text-lg">Cart ({cartQtySignal.value})</span>
     </a>
-  );
-});
+  )
+})

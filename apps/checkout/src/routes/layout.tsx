@@ -4,14 +4,13 @@ import {
   Slot,
   useContextProvider,
   useStore,
-} from '@builder.io/qwik';
-import { Footer, Header } from '@qwik-microfrontends/ui';
+} from '@builder.io/qwik'
 
 interface CheckoutStore {
-  items: string[];
+  items: string[]
 }
 
-export const CheckoutContext = createContextId<CheckoutStore>('Todos');
+export const CheckoutContext = createContextId<CheckoutStore>('Todos')
 
 export default component$(() => {
   useContextProvider(
@@ -19,15 +18,7 @@ export default component$(() => {
     useStore<CheckoutStore>({
       items: ['Qwik', 'Microfrontends'],
     })
-  );
+  )
 
-  return (
-    <>
-      <Header />
-      <main class="min-h-screen mt-18 pt-10 bg-slate-900">
-        <Slot />
-      </main>
-      <Footer />
-    </>
-  );
-});
+  return <Slot />
+})
