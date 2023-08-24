@@ -3,12 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:all": "npx nx run-many --parallel --target=serve --maxParallel=100 --projects=host,static,builder,checkout",
+    "serve:all": "npx nx run-many --parallel --target=serve --maxParallel=100 --projects=host,static",
     "serve:host": "npx nx run-many --parallel --target=serve --projects=host",
     "preview:host": "npx nx run host:preview",
-    "preview:builder": "npx nx run builder:preview",
-    "preview:static": "npx nx run static:preview",
-    "preview:checkout": "npx nx run checkout:preview"
+    "preview:static": "npx nx run static:preview"
   },
   "private": true,
   "dependencies": {

@@ -44,3 +44,5 @@ apps/host/styles/tokens.json
 apps/host/public/tokens.json
 apps/host/public/tokens.generated.json
 apps/host/public/fonts.generated.json
+
+.env

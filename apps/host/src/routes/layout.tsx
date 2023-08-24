@@ -1,15 +1,12 @@
 import { component$, Slot } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
-import { Footer } from '@qwik-microfrontends/ui'
 import isbot from 'isbot'
 
-import {
-  getPersonalizedData,
-  usePersonalizationProvider,
-} from 'shared/context/personalization'
+import { getPersonalizedData, usePersonalizationProvider } from '~shared'
 
 import { Header } from '../components/header/header'
+import Remote from '../components/remote/remote'
 
 export const onGet: RequestHandler = async (requestEvent) => {
   const { next, sharedMap, cookie, request } = requestEvent
@@ -20,10 +17,14 @@ export const onGet: RequestHandler = async (requestEvent) => {
   const viewed = cookie.get('viewed')
   if (viewed?.value && viewed.value === '1') {
     sharedMap.set('viewed', 1)
-    cookie.set('viewed', '0')
+    cookie.set('viewed', '0', {
+      path: '/',
+    })
   } else {
     sharedMap.set('viewed', 0)
-    cookie.set('viewed', '1')
+    cookie.set('viewed', '1', {
+      path: '/',
+    })
   }
 
   const cart = cookie.get('cart')
@@ -51,7 +52,7 @@ export default component$(() => {
       <main class="mt-18 min-h-screen pt-10">
         <Slot />
       </main>
-      <Footer />
+      <Remote path="components/footer" />
     </>
   )
 })

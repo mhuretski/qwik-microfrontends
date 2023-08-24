@@ -1,12 +1,14 @@
+// noinspection ES6PreferShortImport
+// noinspection ES6PreferShortImport
 import { qwikCity } from '@builder.io/qwik-city/vite'
 import { qwikVite } from '@builder.io/qwik/optimizer'
 import { qwikNxVite } from 'qwik-nx/plugins'
 import { ServerOptions, defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-import { remotes } from 'shared/remotes'
-
-import { fixRemoteHTMLInDevMode } from './common'
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { remotes } from '../../libs/shared/src/lib/util/remotes'
+import { fixRemoteHTMLInDevMode } from './src/util/localDevMode'
 import { generateCssTokens } from './styles/util/cssGenerator'
 
 export default defineConfig(({ mode }) => {

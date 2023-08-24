@@ -4,7 +4,7 @@ const { join } = require('path')
 module.exports = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
-    join(__dirname, '../../libs/ui/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../../shared/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   theme: {
     extend: {},

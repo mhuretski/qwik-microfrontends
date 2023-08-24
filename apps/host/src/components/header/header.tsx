@@ -1,7 +1,8 @@
 import { component$ } from '@builder.io/qwik'
-import { CartCounter } from '@qwik-microfrontends/ui'
 
-import { usePersonalization } from 'shared/context/personalization'
+import { usePersonalization } from '~shared'
+
+import { CartCounter } from '../cart-counter/cart-counter'
 
 export const Header = component$(() => {
   const store = usePersonalization()

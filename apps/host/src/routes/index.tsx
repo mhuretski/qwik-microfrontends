@@ -1,10 +1,10 @@
 import { component$ } from '@builder.io/qwik'
 import { Form, routeAction$, z, zod$ } from '@builder.io/qwik-city'
-import { Button } from '@qwik-microfrontends/ui'
 
-import { remotes } from 'shared/remotes'
+import { remotes } from '~shared'
+import { Button } from '~shared'
 
-import RemoteMfe from '../components/remote-mfe/remote-mfe'
+import Remote from '../components/remote/remote'
 
 export const useAction = routeAction$(
   () => {
@@ -21,7 +21,7 @@ export default component$(() => {
   return (
     <>
       <div class="mt-12">
-        <RemoteMfe remote={remotes.builder} />
+        <Remote remote={remotes.static} path="builder/kek" />
         <Form action={action} class="flex items-center">
           <p class="pr-4 text-white">{action.value?.status}</p>
           <input type="text" name="firstName" />
@@ -32,7 +32,7 @@ export default component$(() => {
           />
         </Form>
       </div>
-      <RemoteMfe remote={remotes.static} fetchOnVisible />
+      <Remote remote={remotes.static} fetchOnVisible />
     </>
   )
 })

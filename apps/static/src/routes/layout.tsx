@@ -2,10 +2,8 @@ import { component$, Slot } from '@builder.io/qwik'
 import { routeLoader$ } from '@builder.io/qwik-city'
 import type { RequestHandler } from '@builder.io/qwik-city'
 
-import {
-  getPersonalizedData,
-  usePersonalizationProvider,
-} from 'shared/context/personalization'
+import { getPersonalizedData, usePersonalizationProvider } from '~shared'
+import { useCheckoutProvider } from '~shared'
 
 export const onGet: RequestHandler = async (req) => {
   const { next, sharedMap, cookie } = req
@@ -24,6 +22,7 @@ export default component$(() => {
   const personalizedType = usePersonalized()
 
   usePersonalizationProvider(personalizedType.value)
+  useCheckoutProvider()
 
   return <Slot />
 })

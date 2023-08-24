@@ -15,7 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qwik-microfrontends/ui": ["libs/ui/src/index.ts"]
+      "~shared": ["libs/shared/src/index.ts"],
+      "~offline/*": ["src/peregrine/offline/*"],
+      "~offline": ["src/peregrine/offline"],
+      "~graphql": ["graphql.d.ts"],
+      "#feature/*": ["src/features/*"],
+      "#route/*": ["src/features/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
