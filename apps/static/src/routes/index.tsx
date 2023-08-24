@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { routeLoader$ } from '@builder.io/qwik-city'
 import { Product } from '@qwik-microfrontends/ui'
+
 import { products } from 'shared/constants'
 import { usePersonalization } from 'shared/context/personalization'
 

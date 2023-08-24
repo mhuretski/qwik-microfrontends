@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { CartCounter } from '@qwik-microfrontends/ui'
+
 import { usePersonalization } from 'shared/context/personalization'
 
 export const Header = component$(() => {
@@ -9,9 +10,9 @@ export const Header = component$(() => {
     <nav
       class={`${
         store.viewed ? 'bg-background' : 'bg-primary'
-      } fixed w-full z-20 top-0 left-0 border-b border-gray-600`}
+      } fixed left-0 top-0 z-20 w-full border-b border-gray-600`}
     >
-      <div class="flex flex-wrap items-center justify-between mx-auto p-4">
+      <div class="mx-auto flex flex-wrap items-center justify-between p-4">
         <a href="/" aria-label="logo">
           <svg
             viewBox="0 0 167 53"

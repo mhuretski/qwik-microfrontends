@@ -4,11 +4,12 @@ import {
   RouterOutlet,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city'
+
 import { RouterHead } from './components/router-head/router-head'
 
+import fontsStyles from './fonts.generated.module.css?inline'
 import globalStyles from './global.scss?inline'
 import tokensStyles from './tokens.generated.module.css?inline'
-import fontsStyles from './fonts.generated.module.css?inline'
 
 export default component$(() => {
   /**

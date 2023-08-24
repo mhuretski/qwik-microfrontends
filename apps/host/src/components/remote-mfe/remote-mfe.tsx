@@ -8,10 +8,11 @@ import {
 } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 
-import { fixRemoteHTMLInDevMode } from '../../../shared'
-import { type RemoteData } from '../../../../../shared/remotes'
 import { usePersonalization } from 'shared/context/personalization'
-import { objectToCookiesString } from '../../../../../shared/cookies'
+import { objectToCookiesString } from 'shared/cookies'
+import { type RemoteData } from 'shared/remotes'
+
+import { fixRemoteHTMLInDevMode } from '../../../common'
 
 export interface Props {
   remote: RemoteData
@@ -54,7 +55,7 @@ export default component$(
         })
       ).body?.getReader()
 
-      if (!reader) return null
+      if (!reader) return
 
       let fragmentChunk = await reader.read()
       while (!fragmentChunk.done) {

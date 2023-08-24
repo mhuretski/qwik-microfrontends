@@ -1,11 +1,13 @@
 import { component$ } from '@builder.io/qwik'
+
+import { remotes } from 'shared/remotes'
+
 import RemoteMfe from '../../../components/remote-mfe/remote-mfe'
-import { remotes } from '../../../../../../shared/remotes'
 
 export default component$(() => {
   return (
     <>
-      <div class="flex mt-12" style="color: white">
+      <div class="mt-12 flex" style="color: white">
         checkout!
       </div>
       <RemoteMfe remote={remotes.checkout} />

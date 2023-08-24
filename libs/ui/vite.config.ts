@@ -1,8 +1,7 @@
-import { qwikVite } from '@builder.io/qwik/optimizer';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig } from 'vite';
-
-import { qwikNxVite } from 'qwik-nx/plugins';
+import { qwikVite } from '@builder.io/qwik/optimizer'
+import { qwikNxVite } from 'qwik-nx/plugins'
+import { defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/libs/ui',
@@ -19,4 +18,4 @@ export default defineConfig({
       reportsDirectory: '../../coverage/libs/ui',
     },
   },
-});
+})

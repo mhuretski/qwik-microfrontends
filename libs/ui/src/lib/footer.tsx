@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik'
 
 export const Footer = component$(() => {
   return (
@@ -6,7 +6,7 @@ export const Footer = component$(() => {
       <a
         target="_blank"
         href="https://github.com/gioboa/qwik-microfrontends"
-        class="flex items-center space-x-4 font-medium py-10 pl-10"
+        class="flex items-center space-x-4 py-10 pl-10 font-medium"
       >
         <svg fill="white" viewBox="0 0 24 24" class="h-6 w-6" q:key="0g_0">
           <path
@@ -18,5 +18,5 @@ export const Footer = component$(() => {
         <span>github.com/gioboa/qwik-microfrontends</span>
       </a>
     </footer>
-  );
-});
+  )
+})

@@ -1,4 +1,5 @@
-export const CART_QUANTITIES_CHANGED_EVENT = 'CART_QUANTITIES_CHANGED_EVENT';
+export const CART_QUANTITIES_CHANGED_EVENT = 'CART_QUANTITIES_CHANGED_EVENT'
+
 export const products = [
   {
     id: 1,
@@ -206,4 +207,4 @@ export const products = [
     image: 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg',
     rating: { rate: 3.6, count: 145 },
   },
-];
+]

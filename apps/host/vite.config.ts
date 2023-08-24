@@ -3,9 +3,10 @@ import { qwikVite } from '@builder.io/qwik/optimizer'
 import { qwikNxVite } from 'qwik-nx/plugins'
 import { ServerOptions, defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import { remotes } from '../../shared/remotes'
-import { fixRemoteHTMLInDevMode } from './shared'
 
+import { remotes } from 'shared/remotes'
+
+import { fixRemoteHTMLInDevMode } from './common'
 import { generateCssTokens } from './styles/util/cssGenerator'
 
 export default defineConfig(({ mode }) => {

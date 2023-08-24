@@ -8,6 +8,7 @@ import {
   getPersonalizedData,
   usePersonalizationProvider,
 } from 'shared/context/personalization'
+
 import { Header } from '../components/header/header'
 
 export const onGet: RequestHandler = async (requestEvent) => {
@@ -47,7 +48,7 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <main class="min-h-screen mt-18 pt-10">
+      <main class="mt-18 min-h-screen pt-10">
         <Slot />
       </main>
       <Footer />
