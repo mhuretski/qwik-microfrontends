@@ -1,8 +1,10 @@
 import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik'
 
-import { usePersonalization } from '~shared'
-import { CART_QUANTITIES_CHANGED_EVENT } from '~shared'
-import { setCookie } from '~shared'
+import {
+  setCookie,
+  CART_QUANTITIES_CHANGED_EVENT,
+  usePersonalization,
+} from '~shared'
 
 export const CartCounter = component$(() => {
   const store = usePersonalization()

@@ -3,10 +3,12 @@ import type { RequestHandler } from '@builder.io/qwik-city'
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import isbot from 'isbot'
 
-import { getPersonalizedData, usePersonalizationProvider } from '~shared'
-
-import { Header } from '../components/header/header'
-import Remote from '../components/remote/remote'
+import {
+  getPersonalizedData,
+  Header,
+  Remote,
+  usePersonalizationProvider,
+} from '~shared'
 
 export const onGet: RequestHandler = async (requestEvent) => {
   const { next, sharedMap, cookie, request } = requestEvent

@@ -1,10 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { Form, routeAction$, z, zod$ } from '@builder.io/qwik-city'
 
-import { remotes } from '~shared'
-import { Button } from '~shared'
-
-import Remote from '../components/remote/remote'
+import { Button, Remote } from '~shared'
 
 export const useAction = routeAction$(
   () => {
@@ -21,7 +18,7 @@ export default component$(() => {
   return (
     <>
       <div class="mt-12">
-        <Remote remote={remotes.static} path="builder/kek" />
+        <Remote path="builder/kek" />
         <Form action={action} class="flex items-center">
           <p class="pr-4 text-white">{action.value?.status}</p>
           <input type="text" name="firstName" />
@@ -32,7 +29,7 @@ export default component$(() => {
           />
         </Form>
       </div>
-      <Remote remote={remotes.static} fetchOnVisible />
+      <Remote fetchOnVisible />
     </>
   )
 })

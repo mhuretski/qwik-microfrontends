@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 
-import Remote from '../../../components/remote/remote'
+import { Remote } from '~shared'
 
 export default component$(() => {
   return (

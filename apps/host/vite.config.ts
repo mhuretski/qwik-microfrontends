@@ -7,8 +7,9 @@ import { ServerOptions, defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { remotes } from '../../libs/shared/src/lib/util/remotes'
-import { fixRemoteHTMLInDevMode } from './src/util/localDevMode'
+import { fixRemoteHTMLInDevMode } from '../../libs/shared/src/util/localDevMode'
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { remotes } from '../../libs/shared/src/util/remotes'
 import { generateCssTokens } from './styles/util/cssGenerator'
 
 export default defineConfig(({ mode }) => {

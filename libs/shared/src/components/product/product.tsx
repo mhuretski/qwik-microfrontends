@@ -1,7 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 
-import { CART_QUANTITIES_CHANGED_EVENT } from '~shared'
-import { Button } from '~shared'
+import { CART_QUANTITIES_CHANGED_EVENT, Button } from '~shared'
 
 export type ProductType = {
   id: number

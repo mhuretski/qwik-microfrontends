@@ -1,9 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { routeLoader$ } from '@builder.io/qwik-city'
 
-import { Product } from '~shared'
-import { usePersonalization } from '~shared'
-import { products } from '~shared'
+import { Product, products, usePersonalization } from '~shared'
 
 export const useProductsLoader = routeLoader$(async () => {
   // const response = await fetch('https://fakestoreapi.com/products');

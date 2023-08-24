@@ -8,11 +8,13 @@ import {
 } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 
-import { usePersonalization } from '~shared'
-import { objectToCookiesString } from '~shared'
-import { type RemoteData, remotes } from '~shared'
-
-import { fixRemoteHTMLInDevMode } from '../../util/localDevMode'
+import {
+  fixRemoteHTMLInDevMode,
+  objectToCookiesString,
+  RemoteData,
+  remotes,
+  usePersonalization,
+} from '~shared'
 
 export interface Props {
   remote?: RemoteData
@@ -22,7 +24,7 @@ export interface Props {
   offset?: number
 }
 
-export default component$(
+export const Remote = component$(
   ({
     remote = remotes.static,
     path,

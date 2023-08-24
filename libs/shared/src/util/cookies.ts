@@ -18,11 +18,14 @@ export function setCookie(
   value: string,
   options: CookieOptions = {}
 ) {
-  const expires = options.expires
-    ? '; expires=' + typeof options.expires === 'string'
-      ? options.expires
-      : (options.expires as Date).toUTCString()
-    : ''
+  let expires = ''
+  if (options.expires) {
+    const date =
+      typeof options.expires === 'string'
+        ? options.expires
+        : (options.expires as Date).toUTCString()
+    expires = '; expires=' + date
+  }
   const path = options.path ? '; path=' + options.path : ''
   const domain = options.domain ? '; domain=' + options.domain : ''
   const secure = options.secure ? '; secure' : ''
