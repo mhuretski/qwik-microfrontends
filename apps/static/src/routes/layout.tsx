@@ -22,6 +22,7 @@ export const usePersonalized = routeLoader$(({ sharedMap }) =>
 )
 
 export default component$(() => {
+  // TODO figure out how to cache all possible personalized html pages having same routes but different cookies
   const personalizedType = usePersonalized()
 
   usePersonalizationProvider(personalizedType.value)

@@ -19,6 +19,7 @@ export default component$(() => {
     <>
       <div class="mt-12">
         <Remote path="builder/kek" />
+        {/*TODO Form action triggers hydration of the whole page including layout for some reason*/}
         <Form action={action} class="flex items-center">
           <p class="pr-4 text-white">{action.value?.status}</p>
           <input type="text" name="firstName" />

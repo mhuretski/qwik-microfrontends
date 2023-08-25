@@ -1,13 +1,16 @@
 import { component$, Slot } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
+import { faker } from '@faker-js/faker'
 import isbot from 'isbot'
 
 import {
   getPersonalizedData,
-  Header,
+  HEADER_FIRSTNAME_SLOT,
+  HEADER_LASTNAME_SLOT,
   Remote,
   usePersonalizationProvider,
+  Username,
 } from '~shared'
 
 export const onGet: RequestHandler = async (requestEvent) => {
@@ -43,14 +46,37 @@ export const usePersonalized = routeLoader$(({ sharedMap }) => {
   return getPersonalizedData(sharedMap)
 })
 
+export const useUserData = routeLoader$(async () => {
+  /*
+   * Fake delay while getting Authorization token, deserializing and getting user from db
+   */
+  return new Promise((resolve) => {
+    setTimeout(
+      () =>
+        resolve({
+          firstname: faker.person.firstName(),
+          lastname: faker.person.lastName(),
+        }),
+      200
+    )
+  }) as Promise<{ firstname: string; lastname: string }>
+})
+
 export default component$(() => {
   const personalizedType = usePersonalized()
+  const user = useUserData()
 
   usePersonalizationProvider(personalizedType.value)
 
   return (
     <>
-      <Header />
+      <Remote
+        path="components/header"
+        slots={{
+          [HEADER_FIRSTNAME_SLOT]: <Username value={user.value.firstname} />,
+          [HEADER_LASTNAME_SLOT]: <Username value={user.value.lastname} />,
+        }}
+      />
       <main class="mt-18 min-h-screen pt-10">
         <Slot />
       </main>

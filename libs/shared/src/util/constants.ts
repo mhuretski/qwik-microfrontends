@@ -1,5 +1,3 @@
-export const CART_QUANTITIES_CHANGED_EVENT = 'CART_QUANTITIES_CHANGED_EVENT'
-
 export const products = [
   {
     id: 1,

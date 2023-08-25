@@ -1,8 +1,13 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, Slot } from '@builder.io/qwik'
 
-import { CartCounter, usePersonalization } from '~shared'
+import {
+  CartCounter,
+  HEADER_FIRSTNAME_SLOT,
+  HEADER_LASTNAME_SLOT,
+  usePersonalization,
+} from '~shared'
 
-export const Header = component$(() => {
+export default component$(() => {
   const store = usePersonalization()
 
   return (
@@ -54,6 +59,13 @@ export const Header = component$(() => {
             ></path>
           </svg>
         </a>
+        <div>
+          <span>🎉</span>
+          <Slot name={HEADER_FIRSTNAME_SLOT} />
+          <span>🎉</span>
+          <Slot name={HEADER_LASTNAME_SLOT} />
+          <span>🎉</span>
+        </div>
         <CartCounter />
       </div>
     </nav>
