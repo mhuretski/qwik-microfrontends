@@ -1,2 +1,3 @@
+# TODO main robots.txt, change to Allow when going to production
 User-agent: *
 Disallow: /

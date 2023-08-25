@@ -1,7 +1,5 @@
 import {
   component$,
-  JSXNode,
-  render,
   SSRStream,
   SSRStreamBlock,
   StreamWriter,
@@ -10,16 +8,32 @@ import {
 } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 
-// import jsdom from 'jsdom'
 import {
   fixRemoteHTMLInDevMode,
   objectToCookiesString,
+  PersonalizationState,
   RemoteData,
   remotes,
   usePersonalization,
 } from '~shared'
 
-type DesiredSlots = Record<string, JSXNode>
+export type JSONSerializable = {
+  value:
+    | string
+    | number
+    | boolean
+    | null
+    | JSONSerializable[]
+    | { [key: string]: JSONSerializable }
+}
+
+type MfeSlot = {
+  path: string
+  data: JSONSerializable['value']
+  type?: 'dynamic' | 'static'
+}
+
+type DesiredSlots = Record<string, MfeSlot>
 
 type ProcessedSlot = {
   regex: RegExp
@@ -65,24 +79,40 @@ export const Remote = component$(
 
         try {
           for (const slotName in slots) {
-            const jsdom = await import('jsdom')
-            const { document } = new jsdom.JSDOM().window
-            /*
-             * TODO
-             *  Html is correct only for some simple components,
-             *  when something complex is passed seems like qwik container is needed
-             *  but not sure how to create it
-             */
-            await render(document.body, slots[slotName]).catch((e) => {
-              console.error(e)
-            })
+            const { path, type, data } = slots[slotName]
 
-            processedSlots.push({
-              regex: new RegExp(
-                `<!--qv[^>]*q:key=${slotName}[^>]*--><!--/qv-->`
-              ),
-              html: document.body.innerHTML,
-            })
+            // TODO passing data to dynamic component, should refactor with URL params
+            if (data) {
+              store.stringifiedData = JSON.stringify({ value: data })
+            }
+
+            // TODO chunking
+            const response = await fetch(
+              new URL(path, remotes[type ?? 'dynamic'].origin),
+              {
+                headers: {
+                  accept: 'text/html',
+                  cookie: objectToCookiesString(
+                    store as Omit<PersonalizationState, 'parsedData'>
+                  ),
+                },
+              }
+            )
+            if (response.ok) {
+              const rawHtml = await response.text()
+              const { html } = fixRemoteHTMLInDevMode(
+                rawHtml,
+                '',
+                import.meta.env.DEV
+              )
+
+              processedSlots.push({
+                regex: new RegExp(
+                  `<!--qv[^>]*q:key=${slotName}[^>]*--><!--/qv-->`
+                ),
+                html,
+              })
+            }
           }
         } catch (e) {
           console.error(e)
@@ -93,7 +123,7 @@ export const Remote = component$(
 
       const processedSlotsPromise = processSlots(slots)
 
-      const remoteUrl = new URL(pathname, remote.host)
+      const remoteUrl = new URL(pathname, remote.origin)
       if (removeLoader) {
         remoteUrl.searchParams.append('loader', 'false')
       }
@@ -101,7 +131,9 @@ export const Remote = component$(
         await fetch(remoteUrl, {
           headers: {
             accept: 'text/html',
-            cookie: objectToCookiesString(store),
+            cookie: objectToCookiesString(
+              store as Omit<PersonalizationState, 'parsedData'>
+            ),
           },
         })
       ).body?.getReader()
@@ -114,7 +146,7 @@ export const Remote = component$(
 
       const decoder = new TextDecoder()
       while (!fragmentChunk.done) {
-        // TODO 2 chunks to process at once in case slot is between the chunks
+        // FIXME 2 chunks to process at once in case slot is between the chunks
         let rawHtml = decoder.decode(fragmentChunk.value)
 
         if (count === 0 && slots != null) {

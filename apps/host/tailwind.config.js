@@ -64,6 +64,7 @@ const config = {
   content: [
     join(__dirname, 'src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../static/src/**/*.{js,ts,jsx,tsx,mdx}'),
+    join(__dirname, '../dynamic/src/**/*.{js,ts,jsx,tsx,mdx}'),
     join(__dirname, '../../libs/shared/**/*.{js,ts,jsx,tsx,mdx}'),
   ],
   theme: {

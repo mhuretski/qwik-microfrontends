@@ -1,14 +1,15 @@
 export type RemoteData = {
-  host: string
+  origin: string
   name: string
 }
 
-type Pages = 'static'
+type Pages = 'static' | 'dynamic'
 
 type Remotes = {
   [key in Pages]: RemoteData
 }
 
 export const remotes: Remotes = {
-  static: { host: 'http://localhost:5174/', name: 'static' },
+  static: { origin: 'http://localhost:5174/', name: 'static' },
+  dynamic: { origin: 'http://localhost:5175/', name: 'dynamic' },
 }

@@ -10,7 +10,6 @@ import {
   HEADER_LASTNAME_SLOT,
   Remote,
   usePersonalizationProvider,
-  Username,
 } from '~shared'
 
 export const onGet: RequestHandler = async (requestEvent) => {
@@ -73,8 +72,14 @@ export default component$(() => {
       <Remote
         path="components/header"
         slots={{
-          [HEADER_FIRSTNAME_SLOT]: <Username value={user.value.firstname} />,
-          [HEADER_LASTNAME_SLOT]: <Username value={user.value.lastname} />,
+          [HEADER_FIRSTNAME_SLOT]: {
+            path: 'components/username',
+            data: user.value.firstname,
+          },
+          [HEADER_LASTNAME_SLOT]: {
+            path: 'components/username',
+            data: user.value.lastname,
+          },
         }}
       />
       <main class="mt-18 min-h-screen pt-10">

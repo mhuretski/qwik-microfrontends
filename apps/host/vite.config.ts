@@ -58,9 +58,9 @@ export default defineConfig(({ mode }) => {
 const getProxy = (isDev: boolean) => {
   const proxy: ServerOptions['proxy'] = {}
 
-  Object.entries(remotes).forEach(([name, { host }]) => {
+  Object.entries(remotes).forEach(([name, { origin }]) => {
     proxy[`^/${name}/.*`] = {
-      target: host,
+      target: origin,
       changeOrigin: true,
       selfHandleResponse: isDev,
       rewrite: (path) => {
