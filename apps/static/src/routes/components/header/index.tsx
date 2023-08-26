@@ -59,7 +59,7 @@ export default component$(() => {
             ></path>
           </svg>
         </a>
-        <div>
+        <div class="flex items-center">
           <span>🎉</span>
           <Slot name={HEADER_FIRSTNAME_SLOT} />
           <span>🎉</span>
