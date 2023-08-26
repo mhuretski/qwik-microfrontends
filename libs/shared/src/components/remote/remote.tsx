@@ -43,7 +43,6 @@ type ProcessedSlot = {
 type Props = {
   remote?: RemoteData
   path?: string
-  removeLoader?: boolean
   fetchOnVisible?: boolean
   offset?: number
   slots?: DesiredSlots
@@ -54,7 +53,6 @@ export const Remote = component$(
     remote = remotes.static,
     path,
     fetchOnVisible = false,
-    removeLoader = true,
     offset = 100,
     slots,
   }: Props) => {
@@ -86,18 +84,18 @@ export const Remote = component$(
               store.stringifiedData = JSON.stringify({ value: data })
             }
 
+            const url = new URL(path, remotes[type ?? 'dynamic'].origin)
+            url.searchParams.append('loader', 'false')
+
             // TODO chunking
-            const response = await fetch(
-              new URL(path, remotes[type ?? 'dynamic'].origin),
-              {
-                headers: {
-                  accept: 'text/html',
-                  cookie: objectToCookiesString(
-                    store as Omit<PersonalizationState, 'parsedData'>
-                  ),
-                },
-              }
-            )
+            const response = await fetch(url, {
+              headers: {
+                accept: 'text/html',
+                cookie: objectToCookiesString(
+                  store as Omit<PersonalizationState, 'parsedData'>
+                ),
+              },
+            })
             if (response.ok) {
               const rawHtml = await response.text()
               const { html } = fixRemoteHTMLInDevMode(
@@ -124,9 +122,8 @@ export const Remote = component$(
       const processedSlotsPromise = processSlots(slots)
 
       const remoteUrl = new URL(pathname, remote.origin)
-      if (removeLoader) {
-        remoteUrl.searchParams.append('loader', 'false')
-      }
+      remoteUrl.searchParams.append('loader', 'false')
+
       const reader = (
         await fetch(remoteUrl, {
           headers: {
