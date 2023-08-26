@@ -1,6 +1,6 @@
 import { $, component$ } from '@builder.io/qwik'
 
-import { usePersonalization } from '~shared'
+import { Button, usePersonalization } from '~shared'
 
 type Props = {
   value?: string
@@ -14,9 +14,5 @@ export default component$<Props>(() => {
 
   const testScripts = $(() => alert(username))
 
-  return (
-    <button onClick$={testScripts} class="m-2">
-      {username}
-    </button>
-  )
+  return <Button onClick$={testScripts} class="m-2" text={username} />
 })
