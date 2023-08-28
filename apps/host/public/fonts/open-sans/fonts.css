@@ -4,9 +4,9 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: local(''), url('fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-regular.woff2') format('woff2'),
+    src: local(''), url('/fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-regular.woff2') format('woff2'),
         /* Chrome 26+, Opera 23+, Firefox 39+ */
-            url('fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+            url('/fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* open-sans-700 - latin-ext_latin_cyrillic */
 @font-face {
@@ -14,7 +14,7 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: local(''), url('fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-700.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */ url('fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-700.woff')
+    src: local(''), url('/fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */ url('/fonts/open-sans/open-sans-v29-latin-ext_latin_cyrillic-700.woff')
             format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
