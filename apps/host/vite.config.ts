@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
         // Allow serving files from the project root
         allow: ['../../'],
       },
-      proxy: getProxy(isDev),
+      proxy: getProxy(),
     },
     preview: {
       headers: {
@@ -53,39 +53,15 @@ export default defineConfig(({ mode }) => {
   }
 })
 
-const getProxy = (isDev: boolean) => {
+const getProxy = () => {
   const proxy: ServerOptions['proxy'] = {}
 
   Object.entries(remotes).forEach(([name, { origin }]) => {
     proxy[`^/${name}/.*`] = {
       target: origin,
       changeOrigin: true,
-      selfHandleResponse: isDev,
       rewrite: (path) => {
         return path.replace(`/${name}`, '')
-      },
-      configure: (proxy) => {
-        proxy.on('proxyRes', (proxyRes, req, res) => {
-          if (proxyRes.statusCode === 302) {
-            res.setHeader('Location', '/' + name + proxyRes.headers['location'])
-            res.statusCode = 302
-            res.end()
-            return
-          }
-
-          if (req.url && req.url.slice(-3) === '.js') {
-            res.setHeader('Content-Type', 'application/javascript')
-          } else {
-            res.setHeader('Content-Type', 'text/html')
-          }
-
-          proxyRes.on('data', (chunk) => {
-            res.write(chunk)
-          })
-          proxyRes.on('end', function () {
-            res.end()
-          })
-        })
       },
     }
   })
