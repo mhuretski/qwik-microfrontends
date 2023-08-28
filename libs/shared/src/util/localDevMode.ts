@@ -5,7 +5,7 @@ export const fixRemoteHTMLInDevMode = (
   rawHtml: string,
   base = '',
   isDev?: boolean
-): { html: string; base: string } => {
+): string => {
   let html = rawHtml
   if (isDev) {
     html = html.replace(/q:base="\/(\w+)\/build\/"/gm, (match, child) => {
@@ -23,7 +23,8 @@ export const fixRemoteHTMLInDevMode = (
     })
   }
   html = fixErroredHostDefinition(html, base)
-  return { html, base }
+
+  return html
 }
 
 const fixErroredHostDefinition = (html: string, base: string) =>

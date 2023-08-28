@@ -1,4 +1,5 @@
 import { component$, Slot } from '@builder.io/qwik'
+import { Link } from '@builder.io/qwik-city'
 
 import {
   CartCounter,
@@ -17,7 +18,7 @@ export default component$(() => {
       } fixed left-0 top-0 z-20 w-full border-b border-gray-600`}
     >
       <div class="mx-auto flex flex-wrap items-center justify-between p-4">
-        <a href="/" aria-label="logo">
+        <Link href="/" aria-label="logo">
           <svg
             viewBox="0 0 167 53"
             fill="none"
@@ -58,7 +59,7 @@ export default component$(() => {
               fill="white"
             ></path>
           </svg>
-        </a>
+        </Link>
         <div class="flex items-center">
           <span>🎉</span>
           <Slot name={HEADER_FIRSTNAME_SLOT} />

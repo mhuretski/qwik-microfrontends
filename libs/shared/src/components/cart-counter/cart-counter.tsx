@@ -1,4 +1,5 @@
 import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik'
+import { Link } from '@builder.io/qwik-city'
 
 import {
   setCookie,
@@ -16,16 +17,20 @@ export const CartCounter = component$(() => {
     $((event) => {
       cartQtySignal.value += (event as CustomEvent).detail.qty
 
-      setCookie('cart', cartQtySignal.value.toString(), {
+      const expires = new Date()
+      expires.setHours(expires.getHours() + 1)
+
+      setCookie('cartAmount', cartQtySignal.value.toString(), {
         path: '/',
+        expires,
       })
     })
   )
 
   return (
-    <a
+    <Link
       href="/checkout/summary/"
-      class="mb-2 mr-2 flex w-[170px] items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="flex w-[170px] items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -43,6 +48,6 @@ export const CartCounter = component$(() => {
         />
       </svg>
       <span class="px-2 text-lg">Cart ({cartQtySignal.value})</span>
-    </a>
+    </Link>
   )
 })

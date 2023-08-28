@@ -1,11 +1,12 @@
 import { component$, Slot } from '@builder.io/qwik'
-import { routeLoader$ } from '@builder.io/qwik-city'
 import type { RequestHandler } from '@builder.io/qwik-city'
+import { routeLoader$ } from '@builder.io/qwik-city'
 
 import {
   getPersonalizedData,
   useCheckoutProvider,
   usePersonalizationProvider,
+  useCommunicationProvider,
 } from '~shared'
 
 export const onGet: RequestHandler = async (req) => {
@@ -14,9 +15,11 @@ export const onGet: RequestHandler = async (req) => {
   const viewed = cookie.get('viewed')
   sharedMap.set('viewed', viewed?.value ? Number(viewed.value) : 0)
 
-  const data = cookie.get('stringifiedData')
-  if (data?.value) {
-    sharedMap.set('parsedData', JSON.parse(decodeURIComponent(data.value)))
+  const cart = cookie.get('cartAmount')
+  if (cart?.value != null) {
+    sharedMap.set('cartAmount', Number(cart.value))
+  } else {
+    sharedMap.set('cartAmount', 0)
   }
 
   await next()
@@ -29,6 +32,7 @@ export const usePersonalized = routeLoader$(({ sharedMap }) =>
 export default component$(() => {
   const personalizedType = usePersonalized()
 
+  useCommunicationProvider()
   usePersonalizationProvider(personalizedType.value)
   useCheckoutProvider()
 

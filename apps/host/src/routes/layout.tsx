@@ -9,7 +9,9 @@ import {
   HEADER_FIRSTNAME_SLOT,
   HEADER_LASTNAME_SLOT,
   Remote,
+  slot,
   usePersonalizationProvider,
+  type HeaderSlotData,
 } from '~shared'
 
 export const onGet: RequestHandler = async (requestEvent) => {
@@ -31,7 +33,7 @@ export const onGet: RequestHandler = async (requestEvent) => {
     })
   }
 
-  const cart = cookie.get('cart')
+  const cart = cookie.get('cartAmount')
   if (cart?.value != null) {
     sharedMap.set('cartAmount', Number(cart.value))
   } else {
@@ -72,14 +74,14 @@ export default component$(() => {
       <Remote
         path="components/header"
         slots={{
-          [HEADER_FIRSTNAME_SLOT]: {
+          [HEADER_FIRSTNAME_SLOT]: slot<HeaderSlotData>({
             path: 'components/username',
             data: user.value.firstname,
-          },
-          [HEADER_LASTNAME_SLOT]: {
+          }),
+          [HEADER_LASTNAME_SLOT]: slot<HeaderSlotData>({
             path: 'components/username',
             data: user.value.lastname,
-          },
+          }),
         }}
       />
       <main class="mt-18 min-h-screen pt-10">
@@ -94,7 +96,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
   const personalized = resolveValue(usePersonalized)
 
   return {
-    title: personalized ? 'Hello' : 'Qwik Microfrontends',
+    title: personalized.viewed ? 'Hello' : 'Qwik Microfrontends',
     meta: [
       {
         name: 'description',

@@ -14,6 +14,13 @@ export const onGet: RequestHandler = async (req) => {
   const viewed = cookie.get('viewed')
   sharedMap.set('viewed', viewed?.value ? Number(viewed.value) : 0)
 
+  const cart = cookie.get('cartAmount')
+  if (cart?.value != null) {
+    sharedMap.set('cartAmount', Number(cart.value))
+  } else {
+    sharedMap.set('cartAmount', 0)
+  }
+
   await next()
 }
 
@@ -23,6 +30,7 @@ export const usePersonalized = routeLoader$(({ sharedMap }) =>
 
 export default component$(() => {
   // TODO figure out how to cache all possible personalized html pages having same routes but different cookies
+  //  perhaps easier to use url params idk
   const personalizedType = usePersonalized()
 
   usePersonalizationProvider(personalizedType.value)

@@ -3,11 +3,9 @@
 import { qwikCity } from '@builder.io/qwik-city/vite'
 import { qwikVite } from '@builder.io/qwik/optimizer'
 import { qwikNxVite } from 'qwik-nx/plugins'
-import { ServerOptions, defineConfig } from 'vite'
+import { defineConfig, ServerOptions } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { fixRemoteHTMLInDevMode } from '../../libs/shared/src/util/localDevMode'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { remotes } from '../../libs/shared/src/util/remotes'
 import { generateCssTokens } from './styles/util/cssGenerator'
@@ -68,23 +66,25 @@ const getProxy = (isDev: boolean) => {
       },
       configure: (proxy) => {
         proxy.on('proxyRes', (proxyRes, req, res) => {
-          if (isDev) {
-            const chunks: Buffer[] = []
-            proxyRes.on('data', (chunk) => chunks.push(chunk))
-            proxyRes.on('end', function () {
-              const decoder = new TextDecoder()
-              const rawHtml = decoder.decode(Buffer.concat(chunks))
-              if (req.url && req.url.slice(-3) === '.js') {
-                res.setHeader('Content-Type', 'application/javascript')
-                res.write(rawHtml)
-              } else {
-                res.setHeader('Content-Type', 'text/html')
-                const fixedHtmlObj = fixRemoteHTMLInDevMode(rawHtml, '', isDev)
-                res.write(fixedHtmlObj.html)
-              }
-              res.end()
-            })
+          if (proxyRes.statusCode === 302) {
+            res.setHeader('Location', '/' + name + proxyRes.headers['location'])
+            res.statusCode = 302
+            res.end()
+            return
           }
+
+          if (req.url && req.url.slice(-3) === '.js') {
+            res.setHeader('Content-Type', 'application/javascript')
+          } else {
+            res.setHeader('Content-Type', 'text/html')
+          }
+
+          proxyRes.on('data', (chunk) => {
+            res.write(chunk)
+          })
+          proxyRes.on('end', function () {
+            res.end()
+          })
         })
       },
     }

@@ -1,7 +1,12 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, Slot } from '@builder.io/qwik'
 import { routeLoader$ } from '@builder.io/qwik-city'
 
-import { Product, products, usePersonalization } from '~shared'
+import {
+  Product,
+  products,
+  PRODUCTS_GREETING_SLOT,
+  usePersonalization,
+} from '~shared'
 
 export const useProductsLoader = routeLoader$(async () => {
   // const response = await fetch('https://fakestoreapi.com/products');
@@ -15,13 +20,18 @@ export default component$(() => {
   const store = usePersonalization()
 
   return (
-    <div
-      class={`${store.viewed ? 'bg-background' : 'bg-primary'} flex flex-wrap`}
-      style="justify-content: space-between"
-    >
-      {productsSignal.value.map((p) => (
-        <Product product={p} key={p.id} />
-      ))}
+    <div>
+      <Slot name={PRODUCTS_GREETING_SLOT} />
+      <div
+        class={`${
+          store.viewed ? 'bg-background' : 'bg-primary'
+        } flex flex-wrap`}
+        style="justify-content: space-between"
+      >
+        {productsSignal.value.map((p) => (
+          <Product product={p} key={p.id} />
+        ))}
+      </div>
     </div>
   )
 })
