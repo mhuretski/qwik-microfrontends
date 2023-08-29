@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:all": "npx nx run-many --parallel --target=serve --projects=host,static,dynamic",
+    "serve:all": "npx nx run-many --parallel --maxParallel=4 --target=serve --projects=host,static,dynamic,bigcommerce",
+    "serve:bigcommerce": "npx nx run-many --parallel --maxParallel=4 --target=serve --projects=host,static,dynamic,bigcommerce",
     "serve:host": "npx nx run-many --parallel --target=serve --projects=host",
+    "serve:bigcommerce-only": "npx nx run-many --parallel --target=serve --projects=bigcommerce",
     "preview:host": "npx nx run host:preview",
     "preview:static": "npx nx run static:preview",
-    "preview:dynamic": "npx nx run dynamic:preview"
+    "preview:dynamic": "npx nx run dynamic:preview",
+    "preview:bigcommerce": "npx nx run bigcommerce:preview"
   },
   "private": true,
   "dependencies": {

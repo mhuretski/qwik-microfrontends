@@ -66,5 +66,17 @@ const getProxy = () => {
     }
   })
 
+  if (!process.env.VITE_BACKEND_PORT) {
+    throw new Error('Backend is not specified')
+  }
+
+  proxy['^/api/.*'] = {
+    target: `http://localhost:${process.env.VITE_BACKEND_PORT}`,
+    changeOrigin: true,
+    rewrite: (path) => {
+      return path.replace(`/api`, '')
+    },
+  }
+
   return proxy
 }

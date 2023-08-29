@@ -1,17 +1,17 @@
 import { component$, Slot } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
-import { faker } from '@faker-js/faker'
 import isbot from 'isbot'
 
 import {
+  api,
   getPersonalizedData,
   HEADER_FIRSTNAME_SLOT,
   HEADER_LASTNAME_SLOT,
+  type HeaderSlotData,
   Remote,
   slot,
   usePersonalizationProvider,
-  type HeaderSlotData,
 } from '~shared'
 
 export const onGet: RequestHandler = async (requestEvent) => {
@@ -51,16 +51,7 @@ export const useUserData = routeLoader$(async () => {
   /*
    * Fake delay while getting Authorization token, deserializing and getting user from db
    */
-  return new Promise((resolve) => {
-    setTimeout(
-      () =>
-        resolve({
-          firstname: faker.person.firstName(),
-          lastname: faker.person.lastName(),
-        }),
-      200
-    )
-  }) as Promise<{ firstname: string; lastname: string }>
+  return api<{ firstname: string; lastname: string }>('/user')
 })
 
 export default component$(() => {
